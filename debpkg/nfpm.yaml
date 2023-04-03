@@ -21,10 +21,10 @@ contents:
     mode: 0500
     owner: root
     group: root
-- src: keydesk-backup/src/brigades_backup@.service
-  dst: /etc/systemd/system/brigades_backup@.service
-- src: keydesk-backup/src/brigades_backup@.timer
-  dst: /etc/systemd/system/brigades_backup@.timer
+- src: keydesk-backup/src/brigades_backup.service
+  dst: /etc/systemd/system/brigades_backup.service
+- src: keydesk-backup/src/brigades_backup.timer
+  dst: /etc/systemd/system/brigades_backup.timer
 
 overrides:
   deb:
