@@ -15,15 +15,15 @@ vendor: "VPNGen"
 homepage: "http://vpngen.org"
 
 contents:
-- src: keydesk-backup/brigades_backup.sh
+- src: keydesk-backup/src/brigades_backup.sh
   dst: /opt/vgkeydesk/brigades_backup.sh
   file_info:
     mode: 0500
     owner: root
     group: root
-- src: keydesk/systemd/brigades_backup@.service
+- src: keydesk-backup/src/brigades_backup@.service
   dst: /etc/systemd/system/brigades_backup@.service
-- src: keydesk/systemd/brigades_backup@.timer
+- src: keydesk-backup/src/brigades_backup@.timer
   dst: /etc/systemd/system/brigades_backup@.timer
 
 overrides:
