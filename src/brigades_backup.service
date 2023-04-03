@@ -1,0 +1,10 @@
+[Unit]
+Description=Backup brigades
+Wants=brigades_backup.timer
+
+[Service]
+Type=oneshot
+ExecStart=/opt/vgkeydesk/brigades_backup.sh
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,10 @@
+[Unit]
+Description=Backup brigades
+Requires=brigades_backup.service
+
+[Timer]
+Unit=brigades_backup.service
+OnCalendar=daily
+
+[Install]
+WantedBy=timers.target

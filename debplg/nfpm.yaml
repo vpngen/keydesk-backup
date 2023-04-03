@@ -1,0 +1,41 @@
+name: "vgkeydesk-backup"
+arch: "all"
+platform: "linux"
+version: ${PACKAGE_VERSION}
+section: "default"
+priority: "optional"
+release: ${PACKAGE_RELEASE}
+
+provides:
+- vgkeydesk-backup
+
+maintainer: "Ingmund Ollson <ingmund@proton.me>"
+description: VPNGen keydesk brigades backup
+vendor: "VPNGen"
+homepage: "http://vpngen.org"
+
+contents:
+- src: keydesk-backup/brigades_backup.sh
+  dst: /opt/vgkeydesk/brigades_backup.sh
+  file_info:
+    mode: 0500
+    owner: root
+    group: root
+- src: keydesk/systemd/brigades_backup@.service
+  dst: /etc/systemd/system/brigades_backup@.service
+- src: keydesk/systemd/brigades_backup@.timer
+  dst: /etc/systemd/system/brigades_backup@.timer
+
+overrides:
+  deb:
+    scripts:
+      preinstall: /data/src/preinstall.sh
+      postremove: /data/src/postremove.sh
+deb:
+  compression: xz
+  breaks:
+  - vgkeydesk-all (<< 1.0.0)
+  - vgkeydesk (<< 1.0.0) 
+  - vgkeydesk-stats-access (<< 1.0.0)
+  - vgkeydesk-spawner-access (<< 1.0.0)
+
