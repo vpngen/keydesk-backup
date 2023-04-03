@@ -85,7 +85,6 @@ if [ "$1" = "pkg" ]; then
         ssh-keyscan -t ed25519 github.com >> /etc/ssh/ssh_known_hosts
 
         git config --global url."ssh://git@github.com/".insteadOf "https://github.com/"
-        go install github.com/goreleaser/nfpm/v2/cmd/nfpm@latest
 
         git clone ssh://git@github.com/vpngen/keydesk-backup
         
