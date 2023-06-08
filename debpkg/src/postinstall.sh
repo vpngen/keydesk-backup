@@ -16,6 +16,7 @@ upgrade() {
     	# Step 3(upgrade), do what you need
     	printf "\033[32m Reload the service unit from disk\033[0m\n"
     	systemctl daemon-reload ||:
+        systemctl enable --now brigades_backup.service brigades_backup.timer ||:
 	systemctl restart brigades_backup.service brigades_backup.timer ||:
 }
 
