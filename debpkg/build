@@ -39,7 +39,7 @@ constract_version () {
           PACKAGE_VERSION="${l_tag}-${BRANCH}"
         fi
 
-        if [ -n "${VERMETADATA}" -a "${VERMETADATA}" != "-" ]; then
+        if [ -n "${VERMETADATA}" ] && [ "${VERMETADATA}" != "-" ]; then
           export PACKAGE_VERSION="${PACKAGE_VERSION}+${VERMETADATA}"
         else 
           export PACKAGE_VERSION="${PACKAGE_VERSION}"
@@ -86,7 +86,7 @@ if [ "$1" = "pkg" ]; then
 
         git config --global url."ssh://git@github.com/".insteadOf "https://github.com/"
 
-        git clone ssh://git@github.com/vpngen/keydesk-backup
+        git clone -b "${BRANCH}" ssh://git@github.com/vpngen/keydesk-backup
         
         constract_version "keydesk-backup"
 
@@ -108,9 +108,9 @@ if [ -z "${VERMETADATA}" ]; then
 fi
 
 docker run --rm \
-        -v $(readlink -f $SSH_AUTH_SOCK):/ssh-agent \
+        -v "$(readlink -f $SSH_AUTH_SOCK)":/ssh-agent \
         -e SSH_AUTH_SOCK=/ssh-agent \
-        -e USER_UID=$(id -u) \
+        -e USER_UID="$(id -u)" \
         -e BRANCH="${BRANCH}" \
         -e VERMETADATA="${VERMETADATA}" \
         -v "${PWD}":"${SHARED_BASE}" \
