@@ -5,6 +5,7 @@ BRIGADE_DB_FILE=brigade.json
 BRIGADE_DB_FILE_DEPT=2
 BACKUP_HOST="::1"
 BACKUP_PORT=514
+BACKUP_MAX_SIZE="1MiB"
 
 for brigade in $(find \
         "${BRIGADES_BASE_DIR}" \
@@ -15,8 +16,8 @@ for brigade in $(find \
         -print | awk -F/ '{print $3}'); do
 
         (\
+                # shellcheck disable=SC3037
                 echo -n "[LEA-BRIGADE-BACKUP:${brigade}]" \
-                && xz -9 < "${BRIGADES_BASE_DIR}/${brigade}/brigade.json" | base64 -w 0 \
-        ) | logger -n "${BACKUP_HOST}" -P "${BACKUP_PORT}" -T
+                && zstd < "${BRIGADES_BASE_DIR}/${brigade}/brigade.json" | base64 -w 0 \
+        ) | logger -S "${BACKUP_MAX_SIZE}" -n "${BACKUP_HOST}" -P "${BACKUP_PORT}" -T
 done
-
